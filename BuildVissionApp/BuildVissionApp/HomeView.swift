@@ -9,9 +9,16 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @State private var selectedButton: String? = nil
+    @State private var showImage = false  // State variable to toggle image visibility
+    @State private var currentIndex = 0 // Track selected image index
     var companyInfo: [String] = []
     var imageCollectio : [String] = []
     let gridItems = [GridItem(.flexible()), GridItem(.flexible())] // Two equal-width columns
+    
+  
+    // Array of image names (ensure these match exactly with the names in Assets)
+    let images = ["Image1", "Image2", "Image3", "Image4", "Image5", "Image6"]
     
     var body: some View {
         ZStack {
@@ -62,8 +69,52 @@ struct HomeView: View {
             Text("Explore the diverse tapestry of Apex Builders feature projects, showcasing extensive portfolio of custom homes across the GTA. Our wide-ranging expertise has allowed us to transform unique vision into stunn-ing realities from classic, timeless design to modern architectural masterpieces.")
                 .padding(10)
         
+        
+            // Image section ------>>
+   
+            VStack {
+                // Scrollable Image Carousel with Rectangles Positioned 10px Below the Image
+                TabView(selection: $currentIndex) {
+                    ForEach(0..<images.count, id: \.self) { index in
+                        ZStack(alignment: .bottom) {
+                            // Background Image
+                            Image(images[index])
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: UIScreen.main.bounds.width, height: 300) //  Fixed Frame
+                                .clipShape(Rectangle()) //  Prevents extra spacing
+                                .padding(.bottom, 10) // Keeps it aligned correctly
+
+                            // Rectangles Positioned 10px Below the Image
+                            HStack(spacing: 10) {
+                                ForEach(0..<images.count, id: \.self) { rectIndex in
+                                    Rectangle()
+                                        .frame(width: 40, height: 10)
+                                        .foregroundColor(currentIndex == rectIndex ? Color.orange : Color.gray.opacity(0.5)) // Highlight selected one
+                                        .cornerRadius(5)
+                                }
+                            }
+                            .padding(.bottom, -5) //  Fix to place exactly 5px below the image
+                        }
+                        .tag(index) // Assign tag to track selected index
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never)) // No default page indicators
+                .frame(height: 320) // Ensures `TabView` doesn't shrink
+            }
             
             
+            // Text
+            Text("EXPLORE OUR CUSTOM HOME BUILT IN GTA")
+                .foregroundColor(Color(red: 0.85, green: 0.56, blue: 0.0))
+                .padding(.top, 10)
+                .bold()
+            
+            Text("Explore the diverse tapestry of Apex Builders feature projects, showcasing extensive portfolio of custom homes across the GTA. Our wide-ranging expertise has allowed us to transform unique vision into stunn-ing realities from classic, timeless design to modern architectural masterpieces.")
+                .padding(10)
+            
+            
+            // Section 2 Main
             ZStack {
                 // Yellow Background
                     Color(red: 0.85, green: 0.56, blue: 0.0) // Background Yellow Color
