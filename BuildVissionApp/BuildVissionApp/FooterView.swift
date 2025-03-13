@@ -14,7 +14,7 @@ struct FooterView: View {
         ZStack {
             Color(red: 0.85, green: 0.56, blue: 0.0)
                 .edgesIgnoringSafeArea(.bottom)
-                .frame(height: 410)
+                .frame(height: 390)
             
             VStack {
                 // Top Section (Logo & Social Media)
@@ -24,12 +24,13 @@ struct FooterView: View {
                         .scaledToFit()
                         .frame(width: 80, height: 80)
                         .padding(.leading, 6)
-                       
+                    
                     Spacer()
                     
                     SocialMediaIconsView()
-                    .padding(.trailing, 6)
+                        .padding(.trailing, 6)
                 }
+              
                 
                 Spacer().frame(height: 23) // Add space between logo section & text
                 
@@ -58,19 +59,22 @@ struct FooterView: View {
                     // Left-side menu items with pointers
                     VStack(alignment: .leading, spacing: 10) {
                         ForEach(menuItems, id: \.self) { item in
-                            HStack {
-                                Image("pointer")  // Replace "pointer" with your own image name
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 10, height: 10)  // Adjust pointer size
-                                
-                                Text(item)
-                                    .font(.body)
-                                    .foregroundColor(.black)
+                            NavigationLink(destination: destinationView(for: item)) {
+                                HStack {
+                                    Image("pointer")  // Replace "pointer" with your own image name
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 10, height: 10)  // Adjust pointer size
+                                    
+                                    Text(item)
+                                        .font(.body)
+                                        .foregroundColor(.black)
+                                }
+                                .padding(.leading, 33) // Add padding to the left side
                             }
-                            .padding(.leading, 20) // Add padding to the left side
                         }
                     }
+                    .padding(.bottom, -5) // Move menu items up by 5 pixels
                     
                     Spacer()
                     
@@ -82,9 +86,6 @@ struct FooterView: View {
                     }
                     .padding(.trailing, 20)
                 }
-                .font(.body)
-                .bold()
-                .foregroundColor(.black)
                 
                 Spacer().frame(height: 30) // Add spacing before the copyright text
                 
@@ -98,6 +99,24 @@ struct FooterView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
             }
+        }
+    }
+    
+    // Function to return the corresponding view based on the menu item
+    func destinationView(for item: String) -> some View {
+        switch item {
+        case "HOME":
+            return AnyView(HomeView()) // Replace with your HomeView()
+        case "ABOUT US":
+            return AnyView(AboutUsView()) // Replace with your AboutUsView()
+        case "PROJECTS":
+            return AnyView(ProjectsView()) // Replace with your ProjectsView()
+        case "GALLERY":
+            return AnyView(GalleryView()) // Replace with your GalleryView()
+        case "CONTACT US":
+            return AnyView(ContactUsView()) // Replace with your ContactUsView()
+        default:
+            return AnyView(Text("Page not found")) // Handle unknown cases
         }
     }
 }
