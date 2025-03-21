@@ -8,10 +8,12 @@
 import SwiftUI
 
 @main
-struct BuildVissionAppApp: App {
+struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            NavigationStack {
+                HomeView()
+            }
         }
     }
 }

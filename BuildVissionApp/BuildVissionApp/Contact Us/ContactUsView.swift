@@ -76,8 +76,8 @@ struct ContactUsView: View {
                             
                             TextEditor(text: $message)
                                 .padding(.horizontal, 5)
-                                .frame(minHeight: 300, maxHeight: .infinity) // Adjusted height for the TextEditor
-                                .cornerRadius(10) // Rounded corners
+                                .frame(minHeight: 300, maxHeight: .infinity)
+                                .cornerRadius(10)
                                 .overlay(
                                     Group {
                                         if message.isEmpty {
@@ -101,11 +101,10 @@ struct ContactUsView: View {
                             .font(.title)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, maxHeight: 50)  // Set the max height and stretch the width
-                            .background(Color(red: 0.85, green: 0.56, blue: 0.0))  // Button background color
-                            .cornerRadius(10)  // Rounded corners for the button
+                            .background(Color(red: 0.85, green: 0.56, blue: 0.0))
                     }
-                    .padding(.horizontal, 5)  // Horizontal padding for width control
-                    .padding(5) // Padding for the button
+                    .padding(.horizontal, 5)
+                    .padding(5)
                     
                     FooterView()
                 }
@@ -155,25 +154,3 @@ struct ContactUsView: View {
 }
 
 
-/*
- 
- private func validateFormField() {
-         if firstName.isEmpty {
-             alertMessage = "Please enter your first name"
-         } else if lastName.isEmpty {
-             alertMessage = "Please enter your last name"
-         } else if phoneNumber.isEmpty {
-             alertMessage = "Please enter your phone number"
-         } else if emailAddress.isEmpty {
-             alertMessage = "Please enter your email address"
-         } else if company.isEmpty {
-             alertMessage = "Please enter your company name"
-         } else if message.isEmpty {
-             alertMessage = "Please enter your message"
-         } else {
-             alertMessage = "Your request was submitted successfully!"
-         }
-         showAlert = true
-     }
-
- */
